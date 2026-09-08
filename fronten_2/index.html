@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SolveGrid — Jan Samadhan Platform | SIH 2026</title>
+  
+  <!-- Inter Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          },
+          colors: {
+            brand: {
+              50: '#F0F5FA',
+              100: '#E1EAF3',
+              200: '#C2D5E6',
+              500: '#1A3E61',
+              600: '#14314E',
+              700: '#0F2942',
+              800: '#0B2035',
+              900: '#071626'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- React 18 & Babel for JSX -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="./assets/css/style.css" />
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen">
+  <!-- Toast Notification Mount -->
+  <div id="toast-root"></div>
+
+  <!-- Application Mount Node -->
+  <div id="root"></div>
+
+  <!-- Structured Script Load Order -->
+  <script src="./assets/js/data.js"></script>
+  <script src="./assets/js/ai.js"></script>
+  <script src="./assets/js/api.js"></script>
+  
+  <!-- JSX Components -->
+  <script type="text/babel" src="./assets/js/ui.jsx"></script>
+  <script type="text/babel" src="./assets/js/citizen.jsx"></script>
+  <script type="text/babel" src="./assets/js/pro.jsx"></script>
+  <script type="text/babel" src="./assets/js/app.jsx"></script>
+</body>
+</html>
