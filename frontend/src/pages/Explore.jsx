@@ -4,6 +4,7 @@ import { useLanguage } from '../context/LanguageContext'
 import { api } from '../services/api'
 import { CATEGORIES, STATUS_LIST } from '../data/mockData'
 import ProblemStatus from '../components/common/ProblemStatus'
+import ProblemCard from '../components/common/ProblemCard'
 import { Search, MapPin, List, Map as MapIcon, ArrowUpRight } from 'lucide-react'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import L from 'leaflet'
@@ -135,31 +136,13 @@ export default function Explore() {
               <div className="panel-card p-8 text-center text-xs text-slate-500">No matching issues found.</div>
             ) : (
               problems.map(p => (
-                <Link
+                <ProblemCard
                   key={p.id}
-                  to={`/problem/${p.id}`}
-                  className="panel-card p-3.5 block hover:border-slate-400 transition-colors"
-                >
-                  <div className="flex items-center justify-between gap-2 mb-1">
-                    <span className="font-mono text-[11px] font-bold text-slate-500">{p.id}</span>
-                    <ProblemStatus status={p.status} />
-                  </div>
-                  <h4 className="text-xs font-bold text-slate-900 leading-snug">
-                    {getLocalized(p.title)}
-                  </h4>
-                  <p className="text-[11px] text-slate-500 line-clamp-2 mt-1 leading-relaxed">
-                    {p.ai ? getLocalized(p.ai.summary) : getLocalized(p.description)}
-                  </p>
-                  <div className="flex items-center justify-between text-[11px] text-slate-500 pt-2 mt-2 border-t border-slate-100">
-                    <span className="flex items-center gap-1">
-                      <MapPin className="w-3 h-3 text-slate-400" />
-                      <span className="truncate max-w-[200px]">{p.location}</span>
-                    </span>
-                    <span className="font-mono font-semibold text-slate-800">
-                      Score: {p.priority?.total?.toFixed(1) || '12.0'} / 20
-                    </span>
-                  </div>
-                </Link>
+                  problem={p}
+                  onUpdate={(updated) => {
+                    setProblems(prev => prev.map(item => item.id === updated.id ? updated : item))
+                  }}
+                />
               ))
             )}
           </div>

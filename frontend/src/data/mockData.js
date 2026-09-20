@@ -321,9 +321,74 @@ export const DEMO_USERS = {
   admin: {
     id: 12,
     name: 'Dr. Rajesh Verma',
-    phone: '9876543220',
     role: 'admin',
     department: 'District Monitoring Cell, Jharkhand',
     triageQueueCount: 6
   }
+};
+
+export const DEFAULT_SUGGESTIONS = {
+  P101: [
+    {
+      id: 'sug-101-1',
+      text: {
+        en: 'Water quality testing should be conducted at the community source before repairing the distribution line to isolate sewage contamination.',
+        hi: 'सीवेज संदूषण को अलग करने के लिए वितरण लाइन की मरम्मत से पहले सामुदायिक स्रोत पर पानी की गुणवत्ता का परीक्षण किया जाना चाहिए।'
+      },
+      author: 'Rahul Verma',
+      role: 'Local Resident',
+      date: '2 days ago',
+      verified: true
+    },
+    {
+      id: 'sug-101-2',
+      text: {
+        en: 'Installing a 180-meter French drain with perforated gravel trench alongside the natural gradient could divert 80% of runoff directly into the groundwater table.',
+        hi: 'प्राकृतिक ढलान के साथ 180 मीटर लंबी फ्रेंच नाली लगाने से 80% बरसाती पानी सीधे भूजल पुनर्भरण में जा सकता है।'
+      },
+      author: 'Prof. Sunil Mehta',
+      role: 'Hydrology Researcher, BIT Mesra',
+      date: '5 days ago',
+      verified: true
+    }
+  ],
+  P102: [
+    {
+      id: 'sug-102-1',
+      text: {
+        en: 'A prefabricated modular steel Bailey bridge can be positioned in under 72 hours to restore light tractor access while PWD tenders the concrete abutment rebuild.',
+        hi: 'पीडब्ल्यूडी द्वारा कंक्रीट एबटमेंट पुनर्निर्माण की मंजूरी मिलने तक हल्के ट्रैक्टरों के लिए 72 घंटों में एक प्रीफैब्रिकेटेड बेली ब्रिज स्थापित किया जा सकता है।'
+      },
+      author: 'Er. Sandeep Tirkey',
+      role: 'Rural Infrastructure Consultant',
+      date: '3 days ago',
+      verified: true
+    }
+  ],
+  P103: [
+    {
+      id: 'sug-103-1',
+      text: {
+        en: 'Phase Change Material (PCM) thermal storage can maintain 8-12°C inside an insulated container using only 2.5kW rooftop solar panels, perfectly suited for the tomato harvest.',
+        hi: 'फेज चेंज मटेरियल (पीसीएम) केवल 2.5 किलोवाट रूफटॉप सोलर पैनल से 8-12 डिग्री तापमान बनाए रख सकता है, जो टमाटर की फसल के लिए सर्वथा उपयुक्त है।'
+      },
+      author: 'Dr. Kavita Roy',
+      role: 'Clean Energy Cell, IIT (ISM) Dhanbad',
+      date: '1 week ago',
+      verified: true
+    }
+  ],
+  P104: [
+    {
+      id: 'sug-104-1',
+      text: {
+        en: 'Immediate deployment of 8 standalone solar-powered LED poles along the 600m hospital approach will eliminate dark spots without waiting for underground wiring repair.',
+        hi: 'अस्पताल के 600 मीटर पहुंच मार्ग पर 8 स्वतंत्र सोलर एलईडी पोल लगाने से भूमिगत तारों की मरम्मत का इंतजार किए बिना अंधेरे को तुरंत खत्म किया जा सकता है।'
+      },
+      author: 'Priya Sharma',
+      role: 'Community Health Nurse',
+      date: '4 days ago',
+      verified: true
+    }
+  ]
 };

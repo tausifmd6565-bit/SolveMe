@@ -1,6 +1,6 @@
 // SolveMe Direct FastAPI Backend Integration Service
 
-import { INITIAL_PROBLEMS } from '../data/mockData'
+import { INITIAL_PROBLEMS, DEFAULT_SUGGESTIONS } from '../data/mockData'
 
 const BACKEND_BASE = import.meta.env.VITE_API_BASE || (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? 'http://127.0.0.1:8000' : '')
 
@@ -317,5 +317,51 @@ export const api = {
       }
     } catch (e) {}
     return null
+  },
+
+  // 8. GET /api/problems/{id}/suggestions
+  getSuggestions(problemId) {
+    try {
+      const key = `solveme_suggestions_${problemId}`
+      const local = localStorage.getItem(key)
+      if (local) return JSON.parse(local)
+
+      const pKey = typeof problemId === 'string' && problemId.startsWith('P') ? problemId : `P${problemId}`
+      const defaults = DEFAULT_SUGGESTIONS[pKey] || [
+        {
+          id: `sug-${problemId}-def1`,
+          text: {
+            en: 'Water testing and initial topography review should be conducted before final engineering plans are drawn.',
+            hi: 'अंतिम इंजीनियरिंग योजना तैयार करने से पहले जल परीक्षण और प्रारंभिक स्थलाकृति समीक्षा की जानी चाहिए।'
+          },
+          author: 'Er. R. K. Soren',
+          role: 'Technical Reviewer',
+          date: '3 days ago',
+          verified: true
+        }
+      ]
+      localStorage.setItem(key, JSON.stringify(defaults))
+      return defaults
+    } catch (e) {
+      return []
+    }
+  },
+
+  // 9. POST /api/problems/{id}/suggestions
+  addSuggestion(problemId, text, user, role = 'Local Resident') {
+    const list = this.getSuggestions(problemId)
+    const newSug = {
+      id: `sug-${Date.now()}`,
+      text: { en: text, hi: text },
+      author: user?.name || 'Concerned Citizen',
+      role: role || (user?.role === 'solver' ? 'Academic / Technical Partner' : user?.role === 'admin' ? 'Administrative Reviewer' : 'Local Resident'),
+      date: 'Just now',
+      verified: user?.role === 'solver' || user?.role === 'admin'
+    }
+    const updated = [newSug, ...list]
+    try {
+      localStorage.setItem(`solveme_suggestions_${problemId}`, JSON.stringify(updated))
+    } catch (e) {}
+    return updated
   }
 }

@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 import { useLanguage } from '../context/LanguageContext'
 import { api } from '../services/api'
 import { CATEGORIES } from '../data/mockData'
-import ProblemStatus from '../components/common/ProblemStatus'
-import { PlusCircle, Compass, FileText, CheckCircle2, FolderKanban, MapPin, Users, ArrowUpRight } from 'lucide-react'
+import ProblemCard from '../components/common/ProblemCard'
+import { PlusCircle, Compass, FileText, CheckCircle2, FolderKanban } from 'lucide-react'
 
 export default function Home() {
   const { lang, t, getLocalized, getCategoryName } = useLanguage()
@@ -153,75 +153,16 @@ export default function Home() {
             </p>
           </div>
         ) : (
-          <div className="space-y-2.5">
-            {problems.map(problem => {
-              const title = getLocalized(problem.title)
-              const description = getLocalized(problem.description)
-              const categoryName = getCategoryName(problem.category)
-              const priorityTotal = problem.priority?.total || 12
-
-              return (
-                <Link
-                  key={problem.id}
-                  to={`/problem/${problem.id}`}
-                  className="panel-card p-4 block hover:border-slate-400 transition-colors"
-                >
-                  <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
-                    <div className="space-y-1.5 flex-1 min-w-0">
-                      {/* Top Badges */}
-                      <div className="flex flex-wrap items-center gap-2">
-                        <span className="font-mono text-[11px] font-bold text-slate-500">
-                          {problem.id}
-                        </span>
-                        <span className="px-2 py-0.5 rounded border border-slate-200 bg-slate-50 text-slate-700 text-xs font-medium">
-                          {categoryName}
-                        </span>
-                        <ProblemStatus status={problem.status} />
-                      </div>
-
-                      {/* Title */}
-                      <h4 className="text-sm font-bold text-slate-900 leading-snug">
-                        {title}
-                      </h4>
-
-                      {/* Description preview */}
-                      <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
-                        {problem.ai ? getLocalized(problem.ai.summary) : description}
-                      </p>
-
-                      {/* Metadata row */}
-                      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-slate-500 pt-1">
-                        <span className="flex items-center gap-1">
-                          <MapPin className="w-3 h-3 text-slate-400" />
-                          <span>{problem.location}</span>
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <Users className="w-3 h-3 text-slate-400" />
-                          <span>{problem.confirmations} {t('confirmationsCount')}</span>
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Priority Score Column */}
-                    <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center border-t sm:border-t-0 pt-2 sm:pt-0 border-slate-100 shrink-0">
-                      <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-500">
-                        {t('priorityScoreLabel')}
-                      </span>
-                      <div className="flex items-baseline gap-1 mt-0.5">
-                        <span className="text-base font-bold font-mono text-slate-900">
-                          {priorityTotal.toFixed(1)}
-                        </span>
-                        <span className="text-[10px] text-slate-400">/ 20</span>
-                      </div>
-                      <span className="text-[11px] text-blue-600 font-medium hover:underline flex items-center gap-0.5 mt-1">
-                        <span>{lang === 'hi' ? 'विवरण' : 'View'}</span>
-                        <ArrowUpRight className="w-3 h-3" />
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-              )
-            })}
+          <div className="space-y-3">
+            {problems.map(problem => (
+              <ProblemCard
+                key={problem.id}
+                problem={problem}
+                onUpdate={(updated) => {
+                  setProblems(prev => prev.map(p => p.id === updated.id ? updated : p))
+                }}
+              />
+            ))}
           </div>
         )}
       </div>
